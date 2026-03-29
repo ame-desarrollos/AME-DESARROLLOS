@@ -956,7 +956,8 @@
             <div class="contact-link-icon">✉</div>
             <div class="contact-link-info">
               <div class="contact-link-label">Email</div>
-              <div class="contact-link-value"><a href="mailto:amedesarrollos@gmail.com" style="color:inherit;">amedesarrollos@gmail.com</a></div>
+              <div class="contact-link-value" id="email-display"></div>
+              <script>var u='amedesarrollos',d='gmail.com',el=document.getElementById('email-display');el.innerHTML='<a href="mailto:'+u+'@'+d+'" style="color:inherit;">'+u+'@'+d+'</a>';</script>
             </div>
           </div>
           <div class="contact-link">
@@ -988,10 +989,4 @@
           <div class="form-group">
             <label>¿Qué proceso querés automatizar?</label>
             <textarea name="mensaje" placeholder="Describí brevemente el problema que tenés..." required></textarea>
-          </div>
-          <button type="submit" class="btn-send">Enviar mensaje →</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</sect
+    
