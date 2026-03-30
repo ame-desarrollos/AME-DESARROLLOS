@@ -1,485 +1,1030 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AME Desarrollos | Automatización con IA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        /* ============ VARIABLES (Verde Neón sobre Negro Profundo) ============ */
-        :root {
-            --bg:        #050505; /* Negro más profundo */
-            --surface:   #0a0a0a;
-            --card:      #0f0f0f;
-            --border:    #1a1a1a;
-            --accent:    #00ff95; /* Verde Neón llamativo */
-            --accent2:   #00cc78; /* Verde medio para degradados */
-            --muted:     #4a4a4a;
-            --text:      #ffffff;
-            --text-dim:  #a0a0a0;
-            --font-head: 'Syne', sans-serif;
-            --font-mono: 'DM Mono', monospace;
-            --font-body: 'DM Sans', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AME Desarrollos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============ VARIABLES ============ */
+  :root {
+    --bg:       #0a0a0f;
+    --surface:  #111118;
+    --card:     #16161f;
+    --border:   #1e1e2e;
+    --accent:   #00e5a0;
+    --accent2:  #4f8fff;
+    --muted:    #4a4a6a;
+    --text:     #e8e8f0;
+    --text-dim: #9090b0;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'DM Sans', sans-serif;
+  }
 
-        /* ============ RESET ============ */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        a { color: inherit; text-decoration: none; }
+/* ============ RESET ============ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+background: var(–bg);
+color: var(–text);
+font-family: var(–font-body);
+font-size: 16px;
+line-height: 1.6;
+overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
 
-        /* ============ NOISE TEXTURE OVERLAY ============ */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 2;
-            opacity: 0.3;
-        }
+/* ============ NOISE TEXTURE OVERLAY ============ */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.03’/%3E%3C/svg%3E”);
+pointer-events: none;
+z-index: 0;
+opacity: 0.4;
+}
 
-        /* ============ NAV ============ */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 4rem;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
-        }
-        .nav-logo {
-            font-family: var(--font-head);
-            font-weight: 800;
-            font-size: 1.1rem;
-            letter-spacing: -0.03em;
-            color: var(--accent);
-        }
-        .nav-links { display: flex; gap: 2.5rem; }
-        .nav-links a {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--accent); }
+/* ============ NAV ============ */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1.2rem 4rem;
+background: rgba(10,10,15,0.85);
+backdrop-filter: blur(20px);
+border-bottom: 1px solid var(–border);
+}
+.nav-logo {
+font-family: var(–font-head);
+font-weight: 800;
+font-size: 1.1rem;
+letter-spacing: -0.03em;
+color: var(–accent);
+}
+.nav-links { display: flex; gap: 2.5rem; }
+.nav-links a {
+font-family: var(–font-mono);
+font-size: 0.8rem;
+color: var(–text-dim);
+letter-spacing: 0.08em;
+text-transform: uppercase;
+transition: color 0.2s;
+}
+.nav-links a:hover { color: var(–accent); }
 
-        /* ============ HERO ============ */
-        section { position: relative; z-index: 1; }
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 4rem 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-grid-bg {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(0, 255, 149, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 149, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
-        .hero-glow {
-            position: absolute;
-            top: 20%; right: -10%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(0, 255, 149, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero-content { max-width: 780px; position: relative; }
-        .hero-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--accent);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            padding: 0.4rem 0.9rem;
-            border: 1px solid rgba(0, 255, 149, 0.2);
-            background: rgba(0, 255, 149, 0.05);
-        }
-        h1 {
-            font-family: var(--font-head);
-            font-size: clamp(3rem, 7vw, 5.5rem);
-            font-weight: 800;
-            line-height: 1.0;
-            letter-spacing: -0.04em;
-            margin-bottom: 1rem;
-        }
-        h1 span { 
-            color: var(--accent); 
-            text-shadow: 0 0 20px rgba(0, 255, 149, 0.3);
-        }
-        .hero-sub {
-            font-family: var(--font-mono);
-            font-size: 0.95rem;
-            color: var(--accent2);
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.02em;
-        }
-        .hero-desc {
-            font-size: 1.1rem;
-            color: var(--text-dim);
-            max-width: 560px;
-            line-height: 1.7;
-            margin-bottom: 2.5rem;
-        }
-        .hero-desc strong { color: var(--text); }
+/* ============ SECTIONS ============ */
+section { position: relative; z-index: 1; }
 
-        .btn-primary {
-            display: inline-flex;
-            background: var(--accent);
-            color: #000;
-            font-family: var(--font-head);
-            font-weight: 700;
-            padding: 1rem 2.5rem;
-            border: 2px solid var(--accent);
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover { background: transparent; color: var(--accent); box-shadow: 0 0 20px rgba(0, 255, 149, 0.2); }
-        
-        .btn-outline {
-            display: inline-flex;
-            padding: 1rem 2.5rem;
-            border: 2px solid var(--border);
-            font-family: var(--font-head);
-            font-weight: 700;
-            transition: all 0.3s;
-        }
-        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+/* ============ HERO ============ */
+.hero {
+min-height: 100vh;
+display: flex;
+align-items: center;
+padding: 8rem 4rem 4rem;
+position: relative;
+overflow: hidden;
+}
+.hero-grid-bg {
+position: absolute;
+inset: 0;
+background-image:
+linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+background-size: 60px 60px;
+}
+.hero-glow {
+position: absolute;
+top: 20%; left: 60%;
+width: 600px; height: 600px;
+background: radial-gradient(circle, rgba(0,229,160,0.08) 0%, transparent 70%);
+pointer-events: none;
+}
+.hero-glow2 {
+position: absolute;
+bottom: 10%; left: 10%;
+width: 400px; height: 400px;
+background: radial-gradient(circle, rgba(79,143,255,0.06) 0%, transparent 70%);
+pointer-events: none;
+}
+.hero-content { max-width: 780px; position: relative; }
+.hero-tag {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+font-family: var(–font-mono);
+font-size: 0.75rem;
+color: var(–accent);
+letter-spacing: 0.12em;
+text-transform: uppercase;
+margin-bottom: 1.5rem;
+padding: 0.4rem 0.9rem;
+border: 1px solid rgba(0,229,160,0.3);
+border-radius: 2px;
+}
+.hero-tag::before { content: ‘▶’; font-size: 0.6rem; }
+h1 {
+font-family: var(–font-head);
+font-size: clamp(3rem, 7vw, 5.5rem);
+font-weight: 800;
+line-height: 1.0;
+letter-spacing: -0.04em;
+margin-bottom: 1rem;
+}
+h1 span { color: var(–accent); }
+.hero-sub {
+font-family: var(–font-mono);
+font-size: 0.95rem;
+color: var(–text-dim);
+margin-bottom: 1.5rem;
+letter-spacing: 0.02em;
+}
+.hero-desc {
+font-size: 1.1rem;
+color: var(–text-dim);
+max-width: 560px;
+line-height: 1.7;
+margin-bottom: 2.5rem;
+}
+.hero-desc strong { color: var(–text); font-weight: 500; }
+.btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+display: inline-flex;
+align-items: center;
+gap: 0.6rem;
+background: var(–accent);
+color: #000;
+font-family: var(–font-head);
+font-weight: 700;
+font-size: 0.9rem;
+padding: 0.9rem 2rem;
+letter-spacing: 0.02em;
+transition: all 0.2s;
+border: 2px solid var(–accent);
+cursor: pointer;
+}
+.btn-primary:hover { background: transparent; color: var(–accent); }
+.btn-outline {
+display: inline-flex;
+align-items: center;
+gap: 0.6rem;
+background: transparent;
+color: var(–text);
+font-family: var(–font-head);
+font-weight: 700;
+font-size: 0.9rem;
+padding: 0.9rem 2rem;
+letter-spacing: 0.02em;
+border: 2px solid var(–border);
+transition: all 0.2s;
+cursor: pointer;
+}
+.btn-outline:hover { border-color: var(–accent); color: var(–accent); }
 
-        /* ============ STAT BAR ============ */
-        .stat-bar {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 2.5rem 4rem;
-            display: flex;
-        }
-        .stat-item { flex: 1; text-align: center; border-right: 1px solid var(--border); }
-        .stat-item:last-child { border-right: none; }
-        .stat-number {
-            font-family: var(--font-head);
-            font-size: 2.5rem;
-            color: var(--accent);
-            font-weight: 800;
-        }
-        .stat-label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            margin-top: 0.5rem;
-        }
+/* ============ STAT BAR ============ */
+.stat-bar {
+background: var(–surface);
+border-top: 1px solid var(–border);
+border-bottom: 1px solid var(–border);
+padding: 2rem 4rem;
+display: flex;
+gap: 0;
+position: relative; z-index: 1;
+}
+.stat-item {
+flex: 1;
+text-align: center;
+padding: 0 2rem;
+border-right: 1px solid var(–border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-number {
+font-family: var(–font-head);
+font-size: 2.5rem;
+font-weight: 800;
+color: var(–accent);
+letter-spacing: -0.04em;
+line-height: 1;
+}
+.stat-label {
+font-family: var(–font-mono);
+font-size: 0.72rem;
+color: var(–text-dim);
+text-transform: uppercase;
+letter-spacing: 0.1em;
+margin-top: 0.4rem;
+}
 
-        /* ============ SECTIONS ============ */
-        .section-inner { max-width: 1100px; margin: 0 auto; padding: 8rem 4rem; }
-        .section-label {
-            font-family: var(--font-mono);
-            color: var(--accent);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .section-label::after { content: ''; width: 40px; height: 1px; background: var(--accent); }
-        h2 { font-family: var(--font-head); font-size: 3rem; font-weight: 800; margin-bottom: 2rem; }
-        h2 span { color: var(--accent); }
+/* ============ SECTION COMMONS ============ */
+.section-inner {
+max-width: 1100px;
+margin: 0 auto;
+padding: 6rem 4rem;
+}
+.section-label {
+font-family: var(–font-mono);
+font-size: 0.72rem;
+color: var(–accent);
+text-transform: uppercase;
+letter-spacing: 0.15em;
+margin-bottom: 0.8rem;
+display: flex;
+align-items: center;
+gap: 0.8rem;
+}
+.section-label::after {
+content: ‘’;
+display: block;
+width: 40px;
+height: 1px;
+background: var(–accent);
+}
+h2 {
+font-family: var(–font-head);
+font-size: clamp(2rem, 4vw, 3rem);
+font-weight: 800;
+letter-spacing: -0.04em;
+line-height: 1.1;
+margin-bottom: 1rem;
+}
+h2 span { color: var(–accent); }
 
-        /* ============ CARDS (Skills, Projects, Services) ============ */
-        .skills-grid, .projects-grid, .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-        .skill-card, .project-card, .service-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-        .skill-card:hover, .project-card:hover, .service-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .skill-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
-        .skill-tag, .tech-badge {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--accent);
-            border: 1px solid rgba(0, 255, 149, 0.2);
-            padding: 0.2rem 0.6rem;
-            margin-right: 0.4rem;
-            margin-top: 0.4rem;
-            display: inline-block;
-        }
+/* ============ SOBRE MÍ ============ */
+.about-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 4rem;
+margin-top: 3rem;
+align-items: start;
+}
+.about-text p {
+color: var(–text-dim);
+line-height: 1.8;
+margin-bottom: 1.2rem;
+font-size: 1.05rem;
+}
+.about-text p strong { color: var(–text); }
+.about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+.highlight-item {
+background: var(–card);
+border: 1px solid var(–border);
+border-left: 3px solid var(–accent);
+padding: 1.2rem 1.5rem;
+transition: border-color 0.2s;
+}
+.highlight-item:hover { border-left-color: var(–accent2); }
+.highlight-item h4 {
+font-family: var(–font-head);
+font-size: 0.95rem;
+font-weight: 700;
+margin-bottom: 0.3rem;
+}
+.highlight-item p {
+font-size: 0.85rem;
+color: var(–text-dim);
+line-height: 1.5;
+}
 
-        /* ============ SOBRE MI HIGHLIGHTS ============ */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-        .highlight-item {
-            background: var(--card);
-            padding: 1.5rem;
-            border-left: 3px solid var(--accent);
-            margin-bottom: 1rem;
-        }
+/* ============ SKILLS ============ */
+#skills { background: var(–surface); }
+.skills-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+gap: 1.5rem;
+margin-top: 3rem;
+}
+.skill-card {
+background: var(–card);
+border: 1px solid var(–border);
+padding: 1.8rem;
+position: relative;
+overflow: hidden;
+transition: border-color 0.3s, transform 0.2s;
+}
+.skill-card:hover { border-color: var(–accent); transform: translateY(-3px); }
+.skill-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, var(–accent), var(–accent2));
+transform: scaleX(0);
+transform-origin: left;
+transition: transform 0.3s;
+}
+.skill-card:hover::before { transform: scaleX(1); }
+.skill-icon {
+font-size: 2rem;
+margin-bottom: 1rem;
+display: block;
+}
+.skill-card h3 {
+font-family: var(–font-head);
+font-size: 1.05rem;
+font-weight: 700;
+margin-bottom: 0.6rem;
+}
+.skill-card p {
+font-size: 0.85rem;
+color: var(–text-dim);
+line-height: 1.6;
+}
+.skill-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 0.4rem;
+margin-top: 1rem;
+}
+.skill-tag {
+font-family: var(–font-mono);
+font-size: 0.68rem;
+color: var(–accent);
+border: 1px solid rgba(0,229,160,0.25);
+padding: 0.2rem 0.55rem;
+letter-spacing: 0.05em;
+}
 
-        /* ============ CONTACT FORM ============ */
-        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-        .contact-form-box { background: var(--card); padding: 2.5rem; border: 1px solid var(--border); }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: white;
-            padding: 1rem;
-            margin-top: 0.5rem;
-            outline: none;
-        }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
-        .btn-send {
-            width: 100%;
-            background: var(--accent);
-            color: black;
-            font-weight: 800;
-            padding: 1rem;
-            border: none;
-            cursor: pointer;
-            font-family: var(--font-head);
-            text-transform: uppercase;
-        }
+/* ============ PROYECTOS ============ */
+.projects-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+gap: 1.5rem;
+margin-top: 3rem;
+}
+.project-card {
+background: var(–card);
+border: 1px solid var(–border);
+overflow: hidden;
+transition: border-color 0.3s, transform 0.2s;
+display: flex;
+flex-direction: column;
+}
+.project-card:hover { border-color: var(–accent); transform: translateY(-4px); }
+.project-header {
+background: var(–surface);
+padding: 1.5rem;
+border-bottom: 1px solid var(–border);
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+.project-num {
+font-family: var(–font-mono);
+font-size: 0.7rem;
+color: var(–accent);
+letter-spacing: 0.1em;
+border: 1px solid rgba(0,229,160,0.3);
+padding: 0.2rem 0.5rem;
+}
+.project-status {
+margin-left: auto;
+font-family: var(–font-mono);
+font-size: 0.65rem;
+color: #0a0a0f;
+background: var(–accent);
+padding: 0.2rem 0.6rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+}
+.project-status.wip { background: var(–accent2); }
+.project-body { padding: 1.5rem; flex: 1; }
+.project-body h3 {
+font-family: var(–font-head);
+font-size: 1.15rem;
+font-weight: 700;
+margin-bottom: 0.7rem;
+}
+.project-body p {
+font-size: 0.88rem;
+color: var(–text-dim);
+line-height: 1.65;
+margin-bottom: 1rem;
+}
+.project-tech {
+display: flex;
+flex-wrap: wrap;
+gap: 0.4rem;
+}
+.tech-badge {
+font-family: var(–font-mono);
+font-size: 0.68rem;
+color: var(–text-dim);
+background: var(–surface);
+border: 1px solid var(–border);
+padding: 0.2rem 0.6rem;
+}
+.project-impact {
+margin-top: 1rem;
+padding-top: 1rem;
+border-top: 1px solid var(–border);
+font-family: var(–font-mono);
+font-size: 0.78rem;
+color: var(–accent);
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.project-impact::before { content: ‘⚡’; }
 
-        /* ============ FOOTER ============ */
-        footer {
-            padding: 3rem 4rem;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            color: var(--muted);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-        }
+/* ============ SERVICIOS ============ */
+#servicios { background: var(–surface); }
+.services-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 1.5rem;
+margin-top: 3rem;
+}
+.service-card {
+background: var(–card);
+border: 1px solid var(–border);
+padding: 2rem;
+position: relative;
+transition: border-color 0.3s;
+}
+.service-card:hover { border-color: var(–accent2); }
+.service-price {
+font-family: var(–font-head);
+font-size: 0.8rem;
+color: var(–accent2);
+letter-spacing: 0.05em;
+margin-bottom: 1rem;
+font-weight: 700;
+}
+.service-card h3 {
+font-family: var(–font-head);
+font-size: 1.1rem;
+font-weight: 800;
+margin-bottom: 0.7rem;
+}
+.service-card p {
+font-size: 0.88rem;
+color: var(–text-dim);
+line-height: 1.65;
+margin-bottom: 1.2rem;
+}
+.service-list {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+}
+.service-list li {
+font-size: 0.82rem;
+color: var(–text-dim);
+display: flex;
+align-items: flex-start;
+gap: 0.5rem;
+}
+.service-list li::before {
+content: ‘→’;
+color: var(–accent);
+flex-shrink: 0;
+margin-top: 0.05em;
+}
 
-        /* ============ ANIMATIONS ============ */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fUp 0.8s forwards;
-        }
-        @keyframes fUp { to { opacity: 1; transform: translateY(0); } }
-        .cursor-line {
-            display: inline-block;
-            width: 3px;
-            height: 1em;
-            background: var(--accent);
-            animation: blink 1s infinite;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
+/* ============ CONTACTO ============ */
+.contact-wrapper {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 4rem;
+margin-top: 3rem;
+align-items: start;
+}
+.contact-info h3 {
+font-family: var(–font-head);
+font-size: 1.4rem;
+font-weight: 800;
+margin-bottom: 1rem;
+}
+.contact-info p {
+color: var(–text-dim);
+line-height: 1.7;
+margin-bottom: 2rem;
+}
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+.contact-link {
+display: flex;
+align-items: center;
+gap: 1rem;
+padding: 1rem 1.2rem;
+background: var(–card);
+border: 1px solid var(–border);
+transition: border-color 0.2s, transform 0.2s;
+}
+.contact-link:hover { border-color: var(–accent); transform: translateX(4px); }
+.contact-link-icon {
+width: 36px; height: 36px;
+display: flex; align-items: center; justify-content: center;
+background: rgba(0,229,160,0.08);
+border: 1px solid rgba(0,229,160,0.2);
+font-size: 1rem;
+flex-shrink: 0;
+}
+.contact-link-info {}
+.contact-link-label {
+font-family: var(–font-mono);
+font-size: 0.65rem;
+color: var(–muted);
+text-transform: uppercase;
+letter-spacing: 0.1em;
+}
+.contact-link-value {
+font-size: 0.9rem;
+color: var(–text);
+font-weight: 500;
+}
+.contact-form-box {
+background: var(–card);
+border: 1px solid var(–border);
+padding: 2rem;
+}
+.contact-form-box h4 {
+font-family: var(–font-head);
+font-size: 1.1rem;
+font-weight: 700;
+margin-bottom: 1.5rem;
+}
+.form-group { margin-bottom: 1.2rem; }
+.form-group label {
+display: block;
+font-family: var(–font-mono);
+font-size: 0.7rem;
+color: var(–text-dim);
+text-transform: uppercase;
+letter-spacing: 0.1em;
+margin-bottom: 0.5rem;
+}
+.form-group input,
+.form-group textarea {
+width: 100%;
+background: var(–surface);
+border: 1px solid var(–border);
+color: var(–text);
+font-family: var(–font-body);
+font-size: 0.9rem;
+padding: 0.8rem 1rem;
+outline: none;
+transition: border-color 0.2s;
+resize: vertical;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(–accent); }
+.form-group textarea { min-height: 100px; }
+.btn-send {
+width: 100%;
+background: var(–accent);
+color: #000;
+border: none;
+font-family: var(–font-head);
+font-weight: 700;
+font-size: 0.95rem;
+padding: 1rem;
+cursor: pointer;
+letter-spacing: 0.02em;
+transition: opacity 0.2s;
+}
+.btn-send:hover { opacity: 0.85; }
 
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 768px) {
-            nav { padding: 1rem 1.5rem; }
-            .nav-links { display: none; }
-            .section-inner { padding: 4rem 1.5rem; }
-            .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
-            .stat-bar { flex-direction: column; gap: 1rem; }
-            .stat-item { border: none; padding: 1rem; border-bottom: 1px solid var(--border); }
-        }
-    </style>
+/* ============ FOOTER ============ */
+footer {
+background: var(–surface);
+border-top: 1px solid var(–border);
+padding: 2rem 4rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+position: relative; z-index: 1;
+}
+.footer-brand {
+font-family: var(–font-head);
+font-weight: 800;
+font-size: 1rem;
+color: var(–accent);
+letter-spacing: -0.02em;
+}
+.footer-copy {
+font-family: var(–font-mono);
+font-size: 0.72rem;
+color: var(–muted);
+}
+.footer-made {
+font-family: var(–font-mono);
+font-size: 0.7rem;
+color: var(–muted);
+}
+
+/* ============ FADE IN ANIMATIONS ============ */
+.fade-up {
+opacity: 0;
+transform: translateY(30px);
+animation: fadeUp 0.7s ease forwards;
+}
+.fade-up:nth-child(1) { animation-delay: 0.1s; }
+.fade-up:nth-child(2) { animation-delay: 0.25s; }
+.fade-up:nth-child(3) { animation-delay: 0.4s; }
+.fade-up:nth-child(4) { animation-delay: 0.55s; }
+@keyframes fadeUp {
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ CURSOR LINE ============ */
+.cursor-line {
+display: inline-block;
+width: 3px;
+height: 1em;
+background: var(–accent);
+margin-left: 4px;
+vertical-align: middle;
+animation: blink 1s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+nav { padding: 1rem 1.5rem; }
+.nav-links { display: none; }
+.hero { padding: 7rem 1.5rem 3rem; }
+.section-inner { padding: 4rem 1.5rem; }
+.stat-bar { padding: 1.5rem; flex-wrap: wrap; }
+.stat-item { flex: 1 1 40%; border-right: none; padding: 1rem; }
+.about-grid { grid-template-columns: 1fr; gap: 2rem; }
+.contact-wrapper { grid-template-columns: 1fr; }
+footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+}
+</style>
+
 </head>
 <body>
 
+<!-- NAV -->
+
 <nav>
-    <div class="nav-logo">AME DESARROLLOS</div>
-    <div class="nav-links">
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#proyectos">Proyectos</a>
-        <a href="#skills">Skills</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#contacto">Contacto</a>
-    </div>
+  <div class="nav-logo">AME Desarrollos</div>
+  <div class="nav-links">
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#skills">Skills</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#contacto">Contacto</a>
+  </div>
 </nav>
 
+<!-- HERO -->
+
 <section class="hero" id="inicio">
-    <div class="hero-grid-bg"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-        <div class="hero-tag fade-up" style="animation-delay: 0.1s;">Disponible para proyectos 2026</div>
-        <h1 class="fade-up" style="animation-delay: 0.2s;">
-            Automatizo<br>
-            tu negocio<br>
-            con <span>IA.</span><span class="cursor-line"></span>
-        </h1>
-        <p class="hero-sub fade-up" style="animation-delay: 0.3s;">// Eficiencia extrema · Desarrollo Frontend · Agentes IA</p>
-        <p class="hero-desc fade-up" style="animation-delay: 0.4s;">
-            Identifico procesos manuales y los transformo en <strong>herramientas digitales inteligentes</strong> que te devuelven el recurso más valioso: tu tiempo.
-        </p>
-        <div class="btn-group fade-up" style="animation-delay: 0.5s;">
-            <a class="btn-primary" href="#contacto">Iniciar Consultoría →</a>
-            <a class="btn-outline" href="#proyectos">Ver Portafolio</a>
-        </div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag fade-up">Disponible para proyectos</div>
+    <h1 class="fade-up">
+      Automatizo<br>
+      tu negocio<br>
+      con <span>IA.</span><span class="cursor-line"></span>
+    </h1>
+    <p class="hero-sub fade-up">// Consultor de Automatización · Desarrollo con IA · Apps Móviles</p>
+    <p class="hero-desc fade-up">
+      Identifico procesos repetitivos en tu empresa y los convierto en
+      <strong>herramientas digitales inteligentes</strong> — rápidas de implementar,
+      fáciles de usar, y que te devuelven horas de trabajo cada semana.
+    </p>
+    <div class="btn-group fade-up">
+      <a class="btn-primary" href="#proyectos">Ver proyectos →</a>
+      <a class="btn-outline" href="#contacto">Trabajemos juntos</a>
     </div>
+  </div>
 </section>
+
+<!-- STAT BAR -->
 
 <div class="stat-bar">
-    <div class="stat-item">
-        <div class="stat-number">3+</div>
-        <div class="stat-label">Herramientas Pro</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Enfoque en ROI</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number">IA</div>
-        <div class="stat-label">Core de desarrollo</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number">$0</div>
-        <div class="stat-label">Costo Infraestructura</div>
-    </div>
+  <div class="stat-item">
+    <div class="stat-number">3+</div>
+    <div class="stat-label">Herramientas desarrolladas</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">∞</div>
+    <div class="stat-label">Horas automatizadas</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">IA</div>
+    <div class="stat-label">En cada solución</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">0$</div>
+    <div class="stat-label">Infraestructura para el cliente</div>
+  </div>
 </div>
 
+<!-- SOBRE MÍ -->
+
 <section id="sobre-mi">
-    <div class="section-inner">
-        <div class="section-label">Perfil</div>
-        <h2>Soluciones de<br><span>Ingeniería.</span></h2>
-        <div class="about-grid">
-            <div class="about-text">
-                <p>No desarrollo software genérico. Construyo <strong>activos digitales</strong>. Entiendo la logística y la administración desde el código.</p>
-                <p>Mi stack está diseñado para la velocidad. Uso IA no solo en el producto final, sino como motor de desarrollo para entregar resultados en tiempo récord.</p>
-            </div>
-            <div class="about-highlights">
-                <div class="highlight-item">
-                    <h4>🧠 Automation Mindset</h4>
-                    <p>Si se hace dos veces, debe automatizarse.</p>
-                </div>
-                <div class="highlight-item">
-                    <h4>⚡ High-Speed Delivery</h4>
-                    <p>Ciclos de desarrollo cortos y funcionales.</p>
-                </div>
-            </div>
+  <div class="section-inner">
+    <div class="section-label">Perfil</div>
+    <h2>No soy solo un<br><span>developer.</span></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Soy un <strong>operador tecnológico con mentalidad de negocio</strong>.
+          Entiendo los problemas operativos de las empresas desde adentro, y los
+          resuelvo con código, automatización e inteligencia artificial.
+        </p>
+        <p>
+          Mi enfoque es pragmático: no desarrollo por desarrollar. Cada herramienta
+          que construyo <strong>resuelve un problema real</strong>, reduce tiempos,
+          elimina errores manuales, y genera valor inmediato.
+        </p>
+        <p>
+          Trabajo con IA como copiloto — lo que significa que entrego soluciones
+          en <strong>fracción del tiempo</strong> que tarda un equipo tradicional,
+          sin sacrificar calidad ni funcionalidad.
+        </p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <h4>🧠 Pensamiento en automatización</h4>
+          <p>Antes de ejecutar una tarea, pregunto: ¿cómo hago que esto no tenga que hacerse nunca más manualmente?</p>
         </div>
+        <div class="highlight-item">
+          <h4>⚡ Velocidad de entrega real</h4>
+          <p>Uso IA como amplificador de capacidades. Entrego en días lo que antes tomaba semanas.</p>
+        </div>
+        <div class="highlight-item">
+          <h4>🏭 Entiendo el contexto empresarial</h4>
+          <p>Conozco los procesos operativos, logísticos y administrativos desde la práctica real.</p>
+        </div>
+        <div class="highlight-item">
+          <h4>📱 Visión de producto</h4>
+          <p>No solo construyo herramientas internas. También desarrollo productos digitales orientados al usuario final.</p>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="skills" style="background: var(--surface);">
-    <div class="section-inner">
-        <div class="section-label">Stack</div>
-        <h2>Capacidades<br><span>Técnicas.</span></h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <span class="skill-icon">🤖</span>
-                <h3>IA & Automatización</h3>
-                <p>Integración de LLMs y Prompt Engineering para flujos de trabajo autónomos.</p>
-                <div class="skill-tags">
-                    <span class="skill-tag">Claude 3.5</span>
-                    <span class="skill-tag">OpenAI</span>
-                    <span class="skill-tag">Automation</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <span class="skill-icon">🌐</span>
-                <h3>Frontend Core</h3>
-                <p>Interfaces ultrarrápidas con JavaScript moderno y APIs de sistema de archivos.</p>
-                <div class="skill-tags">
-                    <span class="skill-tag">ES6+</span>
-                    <span class="skill-tag">CSS Grid</span>
-                    <span class="skill-tag">File API</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <span class="skill-icon">📄</span>
-                <h3>Data Processing</h3>
-                <p>Extracción y manipulación masiva de datos en documentos PDF y Excel.</p>
-                <div class="skill-tags">
-                    <span class="skill-tag">Regex</span>
-                    <span class="skill-tag">PDF.js</span>
-                    <span class="skill-tag">Data Parsing</span>
-                </div>
-            </div>
-        </div>
+<!-- SKILLS -->
+
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Capacidades</div>
+    <h2>Mi stack<br><span>técnico.</span></h2>
+    <div class="skills-grid">
+
+```
+  <div class="skill-card">
+    <span class="skill-icon">🤖</span>
+    <h3>Automatización con IA</h3>
+    <p>Diseño y desarrollo de flujos automatizados usando modelos de IA como copiloto. Soluciones rápidas, funcionales y escalables.</p>
+    <div class="skill-tags">
+      <span class="skill-tag">ChatGPT</span>
+      <span class="skill-tag">Claude</span>
+      <span class="skill-tag">Prompt Engineering</span>
     </div>
+  </div>
+
+  <div class="skill-card">
+    <span class="skill-icon">🌐</span>
+    <h3>Desarrollo Web / HTML</h3>
+    <p>Aplicaciones web funcionales sin dependencias externas. Herramientas que corren en el navegador, listas para usar.</p>
+    <div class="skill-tags">
+      <span class="skill-tag">HTML5</span>
+      <span class="skill-tag">CSS3</span>
+      <span class="skill-tag">JavaScript</span>
+      <span class="skill-tag">File System API</span>
+    </div>
+  </div>
+
+  <div class="skill-card">
+    <span class="skill-icon">📄</span>
+    <h3>Procesamiento de Documentos</h3>
+    <p>Renombrado masivo, comparación, extracción de datos y manipulación de archivos PDF y documentos digitales.</p>
+    <div class="skill-tags">
+      <span class="skill-tag">PDF</span>
+      <span class="skill-tag">Bulk Processing</span>
+      <span class="skill-tag">Regex</span>
+    </div>
+  </div>
+
+
+
+  <div class="skill-card">
+    <span class="skill-icon">⚙️</span>
+    <h3>Optimización de Procesos</h3>
+    <p>Análisis de flujos de trabajo, identificación de cuellos de botella y diseño de soluciones que eliminan trabajo manual.</p>
+    <div class="skill-tags">
+      <span class="skill-tag">Workflow Design</span>
+      <span class="skill-tag">Eficiencia</span>
+      <span class="skill-tag">Consultoría</span>
+    </div>
+  </div>
+
+  <div class="skill-card">
+    <span class="skill-icon">🎨</span>
+    <h3>Diseño Web</h3>
+    <p>Desarrollo de interfaces visuales funcionales directamente en código. Sin dependencias de diseño externo — todo construido con HTML, CSS y JSON integrado.</p>
+    <div class="skill-tags">
+      <span class="skill-tag">HTML5</span>
+      <span class="skill-tag">CSS3</span>
+      <span class="skill-tag">JSON</span>
+      <span class="skill-tag">UI sin frameworks</span>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
 </section>
+
+<!-- PROYECTOS -->
 
 <section id="proyectos">
-    <div class="section-inner">
-        <div class="section-label">Casos de éxito</div>
-        <h2>Software que<br><span>funciona.</span></h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>Batch PDF Renamer</h3>
-                <p>Procesamiento de remitos y facturas en segundos usando File System Access API.</p>
-                <div class="tech-badge">JS Nativo</div>
-                <div class="tech-badge">Automation</div>
-            </div>
-            <div class="project-card">
-                <h3>Auditor Inteligente</h3>
-                <p>Comparador de registros para detectar discrepancias en documentación logística.</p>
-                <div class="tech-badge">Algoritmos</div>
-                <div class="tech-badge">UI/UX</div>
-            </div>
-        </div>
+  <div class="section-inner">
+    <div class="section-label">Portafolio</div>
+    <h2>Problemas reales,<br><span>soluciones reales.</span></h2>
+    <div class="projects-grid">
+
+```
+  <div class="project-card">
+    <div class="project-header">
+      <span class="project-num">01</span>
+      <span class="project-status">Entregado</span>
     </div>
+    <div class="project-body">
+      <h3>Renombrador Masivo de PDFs</h3>
+      <p>
+        Herramienta web que permite cargar cientos de archivos PDF y renombrarlos
+        automáticamente según parámetros personalizados (tracking, remitos, números de orden).
+        Descarga automática sin click por archivo usando File System Access API.
+      </p>
+      <div class="project-tech">
+        <span class="tech-badge">HTML5</span>
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">File System API</span>
+        <span class="tech-badge">Bulk Download</span>
+      </div>
+      <div class="project-impact">Elimina horas de trabajo manual por lote</div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-header">
+      <span class="project-num">02</span>
+      <span class="project-status">Entregado</span>
+    </div>
+    <div class="project-body">
+      <h3>Comparador de Archivos por Parámetro</h3>
+      <p>
+        Sistema de comparación de documentos que detecta diferencias según reglas
+        de negocio configurables. Diseñado para auditoría de remitos: carga dos archivos
+        y el sistema verifica integridad de los registros automáticamente.
+      </p>
+      <div class="project-tech">
+        <span class="tech-badge">HTML5</span>
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">File Parsing</span>
+        <span class="tech-badge">Validación</span>
+      </div>
+      <div class="project-impact">Auditoría de documentos en segundos vs horas</div>
+    </div>
+  </div>
+
+
+
+
+
+</div>
+```
+
+  </div>
 </section>
+
+<!-- SERVICIOS -->
+
+<section id="servicios">
+  <div class="section-inner">
+    <div class="section-label">Oferta</div>
+    <h2>¿Qué puedo<br><span>hacer por vos?</span></h2>
+    <div class="services-grid">
+
+```
+  <div class="service-card">
+    <div class="service-price">SERVICIO 01</div>
+    <h3>Herramientas de Automatización</h3>
+    <p>Desarrollo de utilidades web a medida para eliminar tareas repetitivas en tu empresa.</p>
+    <ul class="service-list">
+      <li>Procesamiento masivo de archivos</li>
+      <li>Validación y comparación de documentos</li>
+      <li>Generación automática de reportes</li>
+      <li>Integración con tus flujos existentes</li>
+    </ul>
+  </div>
+
+  <div class="service-card">
+    <div class="service-price">SERVICIO 02</div>
+    <h3>Apps Web a Medida</h3>
+    <p>Sistemas internos funcionales sin necesidad de servidores ni infraestructura costosa.</p>
+    <ul class="service-list">
+      <li>CRMs simplificados</li>
+      <li>Gestores de documentos</li>
+      <li>Dashboards de seguimiento</li>
+      <li>Sistemas de inventario básico</li>
+    </ul>
+  </div>
+
+  <div class="service-card">
+    <div class="service-price">SERVICIO 03</div>
+    <h3>Consultoría en Automatización con IA</h3>
+    <p>Análisis de tus procesos actuales e identificación de oportunidades de mejora con tecnología.</p>
+    <ul class="service-list">
+      <li>Diagnóstico de procesos</li>
+      <li>Roadmap de automatización</li>
+      <li>Implementación asistida</li>
+      <li>Capacitación en uso de IA</li>
+    </ul>
+  </div>
+
+
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- CONTACTO -->
 
 <section id="contacto">
-    <div class="section-inner">
-        <div class="section-label">Contacto</div>
-        <h2>Hablemos de<br><span>negocios.</span></h2>
-        <div class="contact-wrapper">
-            <div class="contact-info">
-                <h3>¿Listo para escalar?</h3>
-                <p>Contame qué proceso te quita tiempo hoy y te daré una propuesta técnica en menos de 24hs.</p>
-                <p style="color: var(--accent);">Email: amedesarrollos@gmail.com</p>
+  <div class="section-inner">
+    <div class="section-label">Contacto</div>
+    <h2>Hablemos de<br><span>tu proyecto.</span></h2>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <h3>¿Tenés un proceso que querés automatizar?</h3>
+        <p>
+          Contame el problema. En 24 horas te digo si tengo una solución
+          y qué implicaría implementarla. Sin compromiso.
+        </p>
+        <div class="contact-links">
+          <div class="contact-link">
+            <div class="contact-link-icon">✉</div>
+            <div class="contact-link-info">
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value" id="email-display"></div>
+              <script>var u='amedesarrollos',d='gmail.com',el=document.getElementById('email-display');el.innerHTML='<a href="mailto:'+u+'@'+d+'" style="color:inherit;">'+u+'@'+d+'</a>';</script>
             </div>
-            <div class="contact-form-box">
-                <form action="https://formsubmit.co/amedesarrollos@gmail.com" method="POST">
-                    <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" name="nombre" required>
-                    </div>
-                    <div class="form-group" style="margin-top: 1rem;">
-                        <label>Email</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group" style="margin-top: 1rem; margin-bottom: 1.5rem;">
-                        <label>Proyecto / Problema</label>
-                        <textarea name="mensaje" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-send">Enviar Propuesta →</button>
-                </form>
+          </div>
+          <div class="contact-link">
+            <div class="contact-link-icon">📍</div>
+            <div class="contact-link-info">
+              <div class="contact-link-label">Ubicación</div>
+              <div class="contact-link-value">Argentina — Trabajo remoto</div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
+      <div class="contact-form-box">
+        <h4>Contame tu problema →</h4>
+        <form action="https://formsubmit.co/amedesarrollos@gmail.com" method="POST">
+          <!-- Configuración FormSubmit -->
+          <input type="hidden" name="_subject" value="Nuevo contacto desde portfolio AME Desarrollos">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://andresjarredondo12-ops.github.io/AME-DESARROLLOS/index.html">
+
+```
+      <div class="form-group">
+        <label>Tu nombre</label>
+        <input type="text" name="nombre" placeholder="Juan García" required>
+      </div>
+      <div class="form-group">
+        <label>Tu email</label>
+        <input type="email" name="email" placeholder="juan@empresa.com" required>
+      </div>
+      <div class="form-group">
+        <label>¿Qué proceso querés automatizar?</label>
+        <textarea name="mensaje" placeholder="Describí brevemente el problema que tenés..." required></textarea>
+      </div>
+      <button type="submit" class="btn-send">Enviar mensaje →</button>
+    </form>
+  </div>
+</div>
+```
+
+  </div>
 </section>
 
+<!-- FOOTER -->
+
 <footer>
-    <div>AME DESARROLLOS // 2026</div>
-    <div>DESIGNED FOR PERFORMANCE</div>
+  <div class="footer-brand">AME Desarrollos</div>
+  <div class="footer-copy">© 2025 Todos los derechos reservados</div>
+  <div class="footer-made">Automatización · IA · Desarrollo</div>
 </footer>
 
 </body>
