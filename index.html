@@ -359,6 +359,149 @@
   }
   .project-impact::before { content: '⚡'; }
 
+  /* PROJECT CARD FEATURED — card 03 ocupa ancho completo */
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .project-card.featured .project-header {
+    grid-column: 1 / -1;
+  }
+  .project-card.featured .project-body {
+    padding: 1.8rem;
+  }
+  .project-card.featured .project-preview {
+    background-color: #0d0d14;
+    border-left: 1px solid #1e1e2e;
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .preview-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: #4a4a6a;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.8rem;
+  }
+  /* Mini mock UI del gestor de pedidos */
+  .mock-ui {
+    background-color: #111118;
+    border: 1px solid #1e1e2e;
+    border-radius: 2px;
+    overflow: hidden;
+    flex: 1;
+  }
+  .mock-header {
+    background-color: #16161f;
+    border-bottom: 1px solid #1e1e2e;
+    padding: 0.6rem 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .mock-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+  }
+  .mock-dot.r { background-color: #ff5f56; }
+  .mock-dot.y { background-color: #ffbd2e; }
+  .mock-dot.g { background-color: #00e5a0; }
+  .mock-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: #4a4a6a;
+    margin-left: 0.4rem;
+    letter-spacing: 0.08em;
+  }
+  .mock-body { padding: 0.9rem; }
+  .mock-row {
+    display: grid;
+    grid-template-columns: 2fr 0.7fr 0.9fr;
+    gap: 0.4rem;
+    margin-bottom: 0.4rem;
+    align-items: center;
+  }
+  .mock-row.head .mock-cell {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: #4a4a6a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid #1e1e2e;
+    margin-bottom: 0.2rem;
+  }
+  .mock-cell {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: #9090b0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mock-cell.highlight { color: #00e5a0; }
+  .mock-cell.qty {
+    background-color: rgba(0,229,160,0.07);
+    border: 1px solid rgba(0,229,160,0.15);
+    padding: 0.1rem 0.35rem;
+    text-align: center;
+    color: #e8e8f0;
+    font-size: 0.65rem;
+  }
+  .mock-footer {
+    border-top: 1px solid #1e1e2e;
+    padding: 0.6rem 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mock-export-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: #000;
+    background-color: #00e5a0;
+    padding: 0.25rem 0.65rem;
+    letter-spacing: 0.06em;
+  }
+  .mock-total {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: #4a4a6a;
+  }
+  .mock-total span { color: #00e5a0; }
+  .preview-flow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+  .flow-step {
+    flex: 1;
+    background-color: #16161f;
+    border: 1px solid #1e1e2e;
+    padding: 0.5rem 0.6rem;
+    text-align: center;
+  }
+  .flow-step-icon { font-size: 1rem; display: block; margin-bottom: 0.2rem; }
+  .flow-step-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: #4a4a6a;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .flow-arrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: #1e1e2e;
+    flex-shrink: 0;
+  }
+
   /* SERVICIOS */
   #servicios { background-color: #111118 !important; }
   .services-grid {
@@ -539,6 +682,13 @@
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .contact-wrapper { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    .project-card.featured {
+      grid-template-columns: 1fr;
+    }
+    .project-card.featured .project-preview {
+      border-left: none;
+      border-top: 1px solid #1e1e2e;
+    }
   }
 </style>
 </head>
@@ -698,6 +848,8 @@
     <div class="section-label">Portafolio</div>
     <h2>Problemas reales,<br><span>soluciones reales.</span></h2>
     <div class="projects-grid">
+
+      <!-- PROYECTO 01 -->
       <div class="project-card">
         <div class="project-header">
           <span class="project-num">01</span>
@@ -715,6 +867,8 @@
           <div class="project-impact">Elimina horas de trabajo manual por lote</div>
         </div>
       </div>
+
+      <!-- PROYECTO 02 -->
       <div class="project-card">
         <div class="project-header">
           <span class="project-num">02</span>
@@ -732,6 +886,109 @@
           <div class="project-impact">Auditoría de documentos en segundos vs horas</div>
         </div>
       </div>
+
+      <!-- PROYECTO 03 — FEATURED (ancho completo) -->
+      <div class="project-card featured">
+        <div class="project-header">
+          <span class="project-num">03</span>
+          <span style="font-family:'DM Mono',monospace;font-size:0.65rem;color:#4f8fff;border:1px solid rgba(79,143,255,0.3);padding:0.2rem 0.6rem;letter-spacing:0.08em;text-transform:uppercase;">App</span>
+          <span class="project-status">Entregado</span>
+        </div>
+
+        <!-- Descripción izquierda -->
+        <div class="project-body">
+          <h3>Gestor de Pedidos Diarios con Exportación a Excel</h3>
+          <p>
+            Aplicación web para equipos de ventas o distribución que necesitan centralizar pedidos diarios sin depender de planillas manuales ni herramientas de pago. El operador carga productos, ingresa cantidades por cliente y genera un archivo Excel listo para enviar por mail — todo sin salir del navegador.
+          </p>
+          <p>
+            La app persiste los datos de la jornada en el navegador, permite editar pedidos en tiempo real, calcula totales automáticamente y exporta una planilla estructurada con formato profesional (cabecera, colores, columnas ajustadas) con un solo click.
+          </p>
+          <div class="project-tech">
+            <span class="tech-badge">HTML5</span>
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">SheetJS / XLSX</span>
+            <span class="tech-badge">LocalStorage</span>
+            <span class="tech-badge">Export API</span>
+            <span class="tech-badge">Sin servidor</span>
+          </div>
+          <div class="project-impact">De la carga al Excel enviable en menos de 2 minutos</div>
+        </div>
+
+        <!-- Preview / mock derecha -->
+        <div class="project-preview">
+          <div>
+            <div class="preview-label">// Vista de la herramienta</div>
+            <div class="mock-ui">
+              <div class="mock-header">
+                <div class="mock-dot r"></div>
+                <div class="mock-dot y"></div>
+                <div class="mock-dot g"></div>
+                <span class="mock-title">gestor-pedidos · jornada 03/05/2025</span>
+              </div>
+              <div class="mock-body">
+                <div class="mock-row head">
+                  <div class="mock-cell">Producto</div>
+                  <div class="mock-cell">Cant.</div>
+                  <div class="mock-cell">Subtotal</div>
+                </div>
+                <div class="mock-row">
+                  <div class="mock-cell highlight">Agua 500ml x12</div>
+                  <div class="mock-cell qty">24</div>
+                  <div class="mock-cell">$14.400</div>
+                </div>
+                <div class="mock-row">
+                  <div class="mock-cell">Gaseosa cola 1.5L</div>
+                  <div class="mock-cell qty">18</div>
+                  <div class="mock-cell">$21.600</div>
+                </div>
+                <div class="mock-row">
+                  <div class="mock-cell">Jugo naranja 1L</div>
+                  <div class="mock-cell qty">30</div>
+                  <div class="mock-cell">$27.000</div>
+                </div>
+                <div class="mock-row">
+                  <div class="mock-cell highlight">Agua saborizada</div>
+                  <div class="mock-cell qty">12</div>
+                  <div class="mock-cell">$9.600</div>
+                </div>
+              </div>
+              <div class="mock-footer">
+                <div class="mock-total">Total: <span>$72.600</span> · 4 ítems</div>
+                <div class="mock-export-btn">↓ Exportar Excel</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flujo de uso -->
+          <div>
+            <div class="preview-label" style="margin-top:0.8rem;">// Flujo de trabajo</div>
+            <div class="preview-flow">
+              <div class="flow-step">
+                <span class="flow-step-icon">📋</span>
+                <span class="flow-step-label">Cargar<br>pedido</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-step">
+                <span class="flow-step-icon">✏️</span>
+                <span class="flow-step-label">Editar<br>cantidades</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-step">
+                <span class="flow-step-icon">📊</span>
+                <span class="flow-step-label">Exportar<br>Excel</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-step">
+                <span class="flow-step-icon">✉️</span>
+                <span class="flow-step-label">Enviar<br>por mail</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN PROYECTO 03 -->
+
     </div>
   </div>
 </section>
